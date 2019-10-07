@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">Epicuture</string>
+    <string name="editText_email">e-mail</string>
+    <string name="editText_password">password</string>
+    <string name="button_connect">Connect</string>
+</resources>
