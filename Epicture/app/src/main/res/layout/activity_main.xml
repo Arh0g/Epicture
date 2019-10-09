@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,62 +7,18 @@
     android:background="@color/colorBackground"
     tools:context=".MainActivity">
 
-    <EditText
-        android:id="@+id/editText_mail"
-        android:layout_width="wrap_content"
+    <FrameLayout
+        android:id="@+id/fragment_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/bottom_navigation"/>
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:autofillHints=""
-        android:ems="10"
-        android:hint="@string/editText_email"
-        android:inputType="textEmailAddress"
-        android:textAlignment="textStart"
-        android:textColor="@color/colorText"
-        android:textColorHint="@color/colorText"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView_title" />
+        android:layout_alignParentBottom="true"
+        app:menu="@menu/bottom_navigation"
+        android:background="?android:attr/windowBackground"/>
 
-    <EditText
-        android:id="@+id/editText_password"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:autofillHints=""
-        android:ems="10"
-        android:hint="@string/editText_password"
-        android:inputType="textPassword"
-        android:textAlignment="textStart"
-        android:textColor="@color/colorText"
-        android:textColorHint="@color/colorText"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText_mail" />
 
-    <Button
-        android:id="@+id/button_connect"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/button_connect"
-        android:textSize="30sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText_password"
-        app:layout_constraintVertical_bias="0.44" />
-
-    <ImageView
-        android:id="@+id/imageView_title"
-        android:layout_width="250dp"
-        android:layout_height="236dp"
-        android:layout_marginTop="32dp"
-        android:contentDescription="@string/contentDescription_title"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/imgur_title" />
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</RelativeLayout>
