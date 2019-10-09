@@ -16,6 +16,9 @@ class MainActivity : AppCompatActivity() {
 
         button_connect.setOnClickListener {
             Toast.makeText(this, "Button was clicked!", Toast.LENGTH_SHORT).show()
+
+            val email: String = editText_mail.text.toString()
+            val password: String = editText_password.text.toString()
         }
     }
 }
