@@ -1,5 +1,6 @@
 package com.epitech.epicture
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
@@ -19,6 +20,9 @@ class MainActivity : AppCompatActivity() {
 
             val email: String = editText_mail.text.toString()
             val password: String = editText_password.text.toString()
+
+            val intent = Intent(this, HomeActivity::class.java)
+            startActivity(intent)
         }
     }
 }
