@@ -11,7 +11,7 @@ import java.io.IOException
 
 class HomeFragment : Fragment() {
 
-    val requestUrl = "https://api.imgur.com/3/gallery/user/rising/0.json"
+    val requestUrl = "https://api.imgur.com/3/gallery/hot/time/"
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?) : View? {
         fetchHomeGallery()
