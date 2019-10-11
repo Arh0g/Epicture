@@ -49,7 +49,7 @@ class HomeFragment : Fragment() {
     }
 
     /*Class to display what Photo contains*/
-    private class PhotoVH(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    public class PhotoVH(itemView: View) : RecyclerView.ViewHolder(itemView) {
         internal var photo: ImageView? = null
         internal var title: TextView? = null
     }
