@@ -22,9 +22,17 @@ import kotlinx.android.synthetic.main.fragment_home.*
 
 
 /*Class to fetch JSONDataArray content*/
+
 class Photo {
     var id: String = ""
     var title: String = ""
+}
+
+/*Class to display what Photo contains*/
+
+class PhotoVH(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    internal var photo: ImageView? = null
+    internal var title: TextView? = null
 }
 
 class HomeFragment : Fragment() {
@@ -46,12 +54,6 @@ class HomeFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-    }
-
-    /*Class to display what Photo contains*/
-    public class PhotoVH(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        internal var photo: ImageView? = null
-        internal var title: TextView? = null
     }
 
     private fun fetchHomeGallery()
