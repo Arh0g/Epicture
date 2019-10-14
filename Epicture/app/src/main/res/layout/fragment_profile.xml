@@ -3,40 +3,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@android:color/white">
-
-    <com.google.android.material.appbar.AppBarLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        
-        <androidx.appcompat.widget.Toolbar
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:id="@+id/toolBarProfile"
-            app:layout_scrollFlags="scroll|enterAlways"
-            app:popupTheme="@style/Base.Theme.AppCompat.Light"
-            app:titleTextColor="#ffffff"
-            />
-
-        <com.google.android.material.tabs.TabLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/tabLayoutProfile"
-            app:tabMode="fixed"
-            app:tabMaxWidth="0dp"
-            app:tabGravity="fill"
-            app:tabIndicatorColor="#ffffff"
-            app:tabTextColor="#ffffff"
-
-            />
-
-    </com.google.android.material.appbar.AppBarLayout>
-
-    <androidx.viewpager.widget.ViewPager
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        android:id="@+id/viewPagerProfile"
-        />
+    android:background="@color/colorBackground">
 
 </RelativeLayout>
