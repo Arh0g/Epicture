@@ -10,8 +10,19 @@ import androidx.fragment.app.Fragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.activity_main.*
 import okhttp3.HttpUrl
+import androidx.appcompat.widget.Toolbar
+import android.*
+import androidx.core.app.ComponentActivity.ExtraData
+import androidx.core.content.ContextCompat.getSystemService
+import android.icu.lang.UCharacter.GraphemeClusterBreak.T
+import android.view.Menu
+import android.view.MenuItem
+import okhttp3.OkHttpClient
+
 
 class MainActivity : AppCompatActivity() {
+
+    private val authentification = imgurAnthentification()
 
     private class imgurAnthentification {
 
@@ -23,6 +34,8 @@ class MainActivity : AppCompatActivity() {
         var accessToken = ""
         var refreshToken = ""
         var username = ""
+
+        val client: OkHttpClient = OkHttpClient.Builder().build()
 
         /*Member function declaration*/
 
@@ -83,19 +96,24 @@ class MainActivity : AppCompatActivity() {
         navView.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener)
         navView.setSelectedItemId(R.id.nav_home)
 
-        var authentification = imgurAnthentification()
-        //authentification.launchAnthentification(this@MainActivity)
+        setSupportActionBar(findViewById(R.id.toolbar))
     }
 
-    override fun onResume() {
-        super.onResume()
+    /*For toolbar */
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.toolbar_menu, menu)
+        return true
+    }
 
-        var uri = intent.data
-        if (uri != null) {
-            println("OKKKKKKKKKKKK")
-            Toast.makeText(this, uri.toString(), Toast.LENGTH_SHORT).show()
-        } else {
-            println("NOOOOOOOOOOOOOO")
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        val id = item.getItemId()
+
+        if (id == R.id.connection_button) {
+            Toast.makeText(this, "Let's connect you !", Toast.LENGTH_LONG).show()
+            authentification.launchAnthentification(this@MainActivity)
+            return true
         }
+
+        return super.onOptionsItemSelected(item)
     }
 }
