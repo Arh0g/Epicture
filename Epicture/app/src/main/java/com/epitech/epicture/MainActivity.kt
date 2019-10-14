@@ -35,6 +35,10 @@ class MainActivity : AppCompatActivity() {
                 replaceFragment(ProfileFragment())
                 return@OnNavigationItemSelectedListener true
             }
+            R.id.nav_favorites -> {
+                replaceFragment(FavoritesFragment())
+                return@OnNavigationItemSelectedListener true
+            }
 
         }
         false
