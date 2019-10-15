@@ -30,13 +30,13 @@ class HomeFragment : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_home, container, false)
         val rv = view.findViewById<RecyclerView>(R.id.rv_home)
-        fetchHomeGallery()
+        refreshHomeGallery()
         rv.adapter = this.adapter
         rv.layoutManager = LinearLayoutManager(this.activity)
         return view
     }
 
-    private fun fetchHomeGallery() {
+    private fun refreshHomeGallery() {
         var request = Request.Builder()
             .url(imgurClient.requestUrl)
             .header("Authorization", "Client-ID " + imgurClient.clientId)
