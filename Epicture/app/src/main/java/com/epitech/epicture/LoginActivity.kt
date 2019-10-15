@@ -34,7 +34,7 @@ class LoginActivity : AppCompatActivity() {
         imgurClient.accountIdentification = java.lang.Long.valueOf(parseUrl[5].split("=".toRegex()).dropLastWhile { it.isEmpty() }
             .toTypedArray()[1])
             .toString()
-        if (imgurClient.accessToken != null && imgurClient.refreshToken != null
+        if (imgurClient.accessToken.isNotEmpty() && imgurClient.refreshToken != null
             && imgurClient.accountUsername != null && imgurClient.accountIdentification != null) {
                 imgurClient.isConnected = true
         }

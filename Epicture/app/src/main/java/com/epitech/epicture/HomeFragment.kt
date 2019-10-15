@@ -10,7 +10,8 @@ import androidx.recyclerview.widget.RecyclerView
 import okhttp3.*
 import org.json.JSONObject
 import java.io.IOException
-import java.lang.Thread.sleep
+import android.os.Handler
+import android.os.Looper
 
 class Photo {
     var id: String = "id"
@@ -19,8 +20,8 @@ class Photo {
 
 class HomeFragment : Fragment() {
 
-    val requestUrl = "https://api.imgur.com/3/gallery/hot/time/"
-    val photos = ArrayList<Photo>()
+    private val photos: ArrayList<Photo> = ArrayList()
+    private var adapter: HomeFragmentAdapter = HomeFragmentAdapter(photos)
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -29,20 +30,16 @@ class HomeFragment : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_home, container, false)
         val rv = view.findViewById<RecyclerView>(R.id.rv_home)
-
         fetchHomeGallery()
-        sleep(1000) // ATTENTION A ENLEVER
-
-        println(photos.size)
+        rv.adapter = this.adapter
         rv.layoutManager = LinearLayoutManager(this.activity)
-        rv.adapter = HomeFragmentAdapter(photos)
         return view
     }
 
     private fun fetchHomeGallery() {
         var request = Request.Builder()
-            .url(requestUrl)
-            .header("Authorization", "Client-ID 979976772a2d967")
+            .url(imgurClient.requestUrl)
+            .header("Authorization", "Client-ID " + imgurClient.clientId)
             .header("User-Agent", "Epicture")
             .build()
         val client = OkHttpClient()
@@ -63,7 +60,9 @@ class HomeFragment : Fragment() {
                     }
                     photoItem.title = item.getString("title")
                     photos.add(photoItem)
-                    println(photoItem.title)
+                    runOnUiThread(Runnable {
+                        adapter.notifyDataSetChanged()
+                    })
                 }
             }
 
@@ -71,6 +70,10 @@ class HomeFragment : Fragment() {
                 println("Failed to execute the request.")
             }
         })
+    }
+
+    private fun runOnUiThread(task: Runnable) {
+        Handler(Looper.getMainLooper()).post(task)
     }
 
 }

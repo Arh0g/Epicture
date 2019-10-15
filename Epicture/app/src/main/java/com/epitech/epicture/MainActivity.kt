@@ -12,8 +12,9 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 class imgurClient {
 
     companion object {
-        var clientId = "979976772a2d967"
-        var clientSecret = "f4fb596a2a59f7b622e15c316bcd0b0eaf9faf12"
+        const val requestUrl = "https://api.imgur.com/3/gallery/hot/time/"
+        const val clientId = "979976772a2d967"
+        const val clientSecret = "f4fb596a2a59f7b622e15c316bcd0b0eaf9faf12"
         var accessToken: String = ""
         var refreshToken: String = ""
         var accountUsername: String = ""

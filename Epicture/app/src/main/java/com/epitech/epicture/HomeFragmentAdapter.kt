@@ -18,9 +18,7 @@ class HomeFragmentAdapter(private val photos: ArrayList<Photo>) :
     override fun getItemCount() = photos.size
 
     override fun onBindViewHolder(holder: HomeFragmentViewHolder, position: Int) {
-        if (holder.view.titleGallery != null) {
-            holder.view.titleGallery.text = photos[position].title
-        }
+        holder.view.titleGallery.text = photos[position].title
         Picasso.get().load("https://i.imgur.com/" + photos[position].id + ".jpg").into(holder.view.imageGallery)
     }
 
