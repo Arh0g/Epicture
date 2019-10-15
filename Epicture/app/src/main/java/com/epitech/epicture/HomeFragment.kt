@@ -14,8 +14,12 @@ import android.os.Handler
 import android.os.Looper
 
 class Photo {
-    var id: String = "id"
-    var title: String = "title"
+    var id: String = "id" // "id" or "cover"
+    var title: String = "title" // "title"
+    var ups: Int = 0 // "ups"
+    var downs: Int = 0 // "downs"
+    var comment: Int = 0 // "comment_count"
+    var views: Int = 0 // views
 }
 
 class HomeFragment : Fragment() {
@@ -53,12 +57,17 @@ class HomeFragment : Fragment() {
                 for (items in 0 until (jsonItems.length() - 1)) {
                     val item = jsonItems.getJSONObject(items)
                     val photoItem = Photo()
+                    println(item)
                     if (item.getBoolean("is_album")) {
                         photoItem.id = item.getString("cover")
                     } else {
                         photoItem.id = item.getString("id")
                     }
                     photoItem.title = item.getString("title")
+                    photoItem.ups = item.getString("ups").toInt()
+                    photoItem.downs = item.getString("downs").toInt()
+                    photoItem.comment = item.getString("comment_count").toInt()
+                    photoItem.views = item.getString("views").toInt()
                     photos.add(photoItem)
                     runOnUiThread(Runnable {
                         adapter.notifyDataSetChanged()
