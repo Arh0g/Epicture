@@ -101,13 +101,11 @@ class ProfileFragment : Fragment() {
 
                 runOnUiThread(Runnable {
                     val reputation = jsonItems["reputation"] as Int
-                    val bio: String = jsonItems["bio"].toString()
                     val reputationType: String = jsonItems["reputation_name"].toString()
 
                     profileReputationNumber.text = reputation.toString()
                     if (reputation <= 1)
                         profileReputationText.text = "internet point"
-                    profileDescription.text = bio
                     profileReputationType.text = reputationType
                 })
 
