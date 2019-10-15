@@ -1,8 +1,174 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/colorBackground">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
+    <RelativeLayout
+        android:id="@+id/relayyy"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/grad"
+        android:paddingBottom="20dp">
+
+        <RelativeLayout
+            android:id="@+id/imgUser"
+            android:layout_width="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_height="wrap_content"
+            android:background="@drawable/circle_border"
+            android:layout_marginTop="20dp">
+
+            <ImageView
+                android:id="@+id/profileAvatar"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:layout_margin="8dp"
+                android:padding="3dp"
+                android:background="@drawable/circle"
+                tools:srcCompat="@tools:sample/avatars[2]"
+                android:adjustViewBounds="true"
+                android:scaleType="center"/>
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/profileName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Arthur Kalman Ringler"
+            android:layout_below="@id/imgUser"
+            android:layout_centerHorizontal="true"
+            android:textSize="32sp"
+            android:textColor="@color/white"
+            android:fontFamily="sans-serif-light"
+            android:layout_marginTop="15sp"
+            />
+
+        <TextView
+            android:id="@+id/profileReputationType"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Reputation type"
+            android:layout_below="@id/profileName"
+            android:layout_centerHorizontal="true"
+            android:textSize="24sp"
+            android:textColor="@color/white"
+            android:fontFamily="sans-serif"
+            android:layout_marginTop="15sp"
+            />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/inlayyy"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/relayyy"
+        android:orientation="horizontal">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:gravity="center"
+            android:background="@color/colorAccent">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/profilePostNumber"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="666"
+                    android:textSize="25sp"
+                    android:textColor="@color/white"
+                    android:fontFamily="sans-serif-light"
+                    />
+                <TextView
+                    android:id="@+id/profilePostText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="posts"
+                    android:textAllCaps="true"
+                    android:textSize="13sp"
+                    android:textColor="@color/white"
+                    android:fontFamily="sans-serif-light"
+                    />
+            </LinearLayout>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:gravity="center"
+            android:background="@color/colorAccent">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/profileReputationNumber"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="666"
+                    android:textSize="25sp"
+                    android:textColor="@color/white"
+                    android:fontFamily="sans-serif-light"
+                    />
+                <TextView
+                    android:id="@+id/profileReputationText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="internet points"
+                    android:textAllCaps="true"
+                    android:textSize="13sp"
+                    android:textColor="@color/white"
+                    android:fontFamily="sans-serif-light"
+                    />
+            </LinearLayout>
+        </RelativeLayout>
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_below="@+id/inlayyy"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10sp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center_horizontal"
+                android:layout_centerHorizontal="true">
+                <TextView
+                    android:id="@+id/profileDescription"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Profile Description"
+                    android:layout_centerHorizontal="true"
+                    android:textSize="18sp"/>
+            </LinearLayout>
+        </LinearLayout>
+    </RelativeLayout>
 </RelativeLayout>
