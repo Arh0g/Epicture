@@ -24,11 +24,12 @@
             android:background="@drawable/shapebasic">
 
             <ImageView
-                android:id="@+id/imageView"
+                android:id="@+id/imageViewLoad"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@drawable/shapebasic"
-                android:backgroundTint="@color/colorAccent"/>
+                android:backgroundTint="@color/colorAccent"
+                android:scaleType="centerCrop"/>
         </LinearLayout>
 
         <LinearLayout
