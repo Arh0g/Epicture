@@ -3,9 +3,13 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorPrimary">@color/colorBackground</item>
+        <item name="colorPrimaryDark">@color/colorBackgroundDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="titleTextColor">@color/white</item>
+        <item name="android:fontFamily">@font/comfortaa</item>
     </style>
+
+    <color name="yourColorTitle">#FFFFFF</color>
 
 </resources>

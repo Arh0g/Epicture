@@ -3,8 +3,10 @@
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
-    <color name="colorBackground">#6666ff</color>
+    <color name="colorBackgroundLight">#e6e6ff</color>
     <color name="colorPhotoInfo">#3333ff</color>
+    <color name="colorBackgroundDark">#170E3E</color>
+    <color name="colorBackground">#7059d9</color>
     <color name="colorText">#FFFFFF</color>
     <color name="white">#FFFFFF</color>
 </resources>
