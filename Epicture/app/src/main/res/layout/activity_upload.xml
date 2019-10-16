@@ -75,7 +75,7 @@
 
 
             <Button
-                android:id="@+id/button"
+                android:id="@+id/loadPictureButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Load Picture"
@@ -87,7 +87,7 @@
                 android:textColor="@color/white"/>
 
             <Button
-                android:id="@+id/button2"
+                android:id="@+id/uploadPictureButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Upload Picture"
