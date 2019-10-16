@@ -1,10 +1,7 @@
 package com.epitech.epicture
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import androidx.fragment.app.Fragment
-import android.view.View
-import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import okhttp3.*
@@ -12,6 +9,7 @@ import org.json.JSONObject
 import java.io.IOException
 import android.os.Handler
 import android.os.Looper
+import android.view.*
 import androidx.recyclerview.widget.GridLayoutManager
 
 class Photo {
@@ -35,15 +33,15 @@ class HomeFragment : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_home, container, false)
         val rv = view.findViewById<RecyclerView>(R.id.rv_home)
-        refreshHomeGallery()
+        refreshHomeGallery(imgurClient.requestUrl)
         rv.adapter = this.adapter
         rv.layoutManager = LinearLayoutManager(this.activity)
         return view
     }
 
-    private fun refreshHomeGallery() {
+    private fun refreshHomeGallery(requestUrl: String) {
         var request = Request.Builder()
-            .url(imgurClient.requestUrl)
+            .url(requestUrl)
             .header("Authorization", "Client-ID " + imgurClient.clientId)
             .header("User-Agent", "Epicture")
             .build()
@@ -79,6 +77,35 @@ class HomeFragment : Fragment() {
                 println("Failed to execute the request.")
             }
         })
+    }
+
+    override fun onResume() {
+        setHasOptionsMenu(true)
+        super.onResume()
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.itemHot -> {
+                refreshHomeGallery(imgurClient.requestUrl)
+                return true
+            }
+            R.id.itemTop -> {
+                refreshHomeGallery(imgurClient.requestUrlTop)
+                return true
+            }
+            R.id.itemViral -> {
+                println("alleeeeeeeez")
+                refreshHomeGallery(imgurClient.requestUrlViral)
+                return true
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.filter_toolbar, menu);
+        super.onCreateOptionsMenu(menu, inflater)
     }
 
     private fun runOnUiThread(task: Runnable) {
