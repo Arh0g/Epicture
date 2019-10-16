@@ -14,6 +14,11 @@ import kotlinx.android.synthetic.main.fragment_profile.*
 import okhttp3.*
 import org.json.JSONObject
 import java.io.IOException
+import androidx.appcompat.app.AppCompatActivity
+
+
+
+
 
 class ProfileFragment : Fragment() {
 
@@ -100,6 +105,35 @@ class ProfileFragment : Fragment() {
         })
     }
 
+    fun fetchPostsProfile() {
+        var requestProfile = "https://api.imgur.com/3/account/" + imgurClient.accountUsername+ "/images/"
+
+        var request = Request.Builder()
+            .url(requestProfile)
+            .header("Authorization", "Bearer " + imgurClient.accessToken)
+            .build()
+        val client = OkHttpClient()
+        client.newCall(request).enqueue(object : Callback {
+
+            override fun onResponse(call: Call, response: Response) {
+
+                val jsonData = JSONObject(response.body()?.string())
+                val jsonItems = jsonData.getJSONArray("data")
+
+                runOnUiThread(Runnable {
+                    for (items in 0 until (jsonItems.length() - 1)) {
+                        val item = jsonItems.getJSONObject(items)
+                    }
+                })
+
+            }
+
+            override fun onFailure(call: Call?, e: IOException?) {
+                println("Failed to execute the request.")
+            }
+        })
+    }
+
     fun fetchReputationProfile() {
         var requestProfile = "https://api.imgur.com/3/account/" + imgurClient.accountUsername
 
@@ -131,5 +165,21 @@ class ProfileFragment : Fragment() {
                 println("Failed to execute the request.")
             }
         })
+    }
+
+    override fun onResume() {
+        super.onResume()
+        super.onResume()
+        (activity as AppCompatActivity).supportActionBar!!.hide()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        (activity as AppCompatActivity).supportActionBar!!.show()
+    }
+
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
     }
 }
