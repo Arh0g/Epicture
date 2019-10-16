@@ -1,5 +1,6 @@
 package com.epitech.epicture
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -88,6 +89,11 @@ class HomeFragment : Fragment() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
+            R.id.itemAddPicture -> {
+                val intent =  Intent(activity, UploadActivity::class.java)
+                startActivity(intent)
+                return true
+            }
             R.id.itemHot -> {
                 photos.clear()
                 Toast.makeText(context, "Load hot galleries !", Toast.LENGTH_SHORT).show()

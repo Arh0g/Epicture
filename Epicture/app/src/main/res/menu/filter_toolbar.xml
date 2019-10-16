@@ -3,6 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
+        android:id="@+id/itemAddPicture"
+        android:title="Add"
+        android:icon="@drawable/ic_file_upload_black_24dp"
+        app:showAsAction="always">
+    </item>
+    <item
         android:id="@+id/itemHot"
         android:title="Hot"
         >

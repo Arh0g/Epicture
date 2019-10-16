@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorBackgroundDark">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="350dp"
+        android:background="@drawable/shapelinearupload"
+        android:layout_marginTop="50dp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
+        android:orientation="vertical"
+        android:gravity="center">
+
+        <LinearLayout
+            android:id="@+id/layoutImage"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:orientation="vertical"
+            android:background="@drawable/shapebasic">
+
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/shapebasic"
+                android:backgroundTint="@color/colorAccent"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:background="@drawable/shapebasic">
+
+            <EditText
+                android:id="@+id/editText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:text="Title"
+                android:layout_marginTop="20sp"
+                android:layout_marginLeft="10sp"
+                android:layout_marginRight="10sp"/>
+
+            <EditText
+                android:id="@+id/editText2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:text="Description"
+                android:layout_marginTop="30sp"
+                android:layout_marginLeft="10sp"
+                android:layout_marginRight="10sp"/>
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_marginTop="10sp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+
+            <Button
+                android:id="@+id/button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Load Picture"
+                android:layout_marginTop="30sp"
+                android:layout_marginLeft="35sp"
+                android:layout_marginRight="35sp"
+                android:backgroundTint="@color/colorAccent"
+                android:background="@drawable/shapebasic"
+                android:textColor="@color/white"/>
+
+            <Button
+                android:id="@+id/button2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Upload Picture"
+                android:layout_marginTop="30sp"
+                android:layout_marginLeft="35sp"
+                android:layout_marginRight="35sp"
+                android:backgroundTint="@color/colorPrimary"
+                android:background="@drawable/shapebasic"
+                android:textColor="@color/white"/>
+
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>
