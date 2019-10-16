@@ -1,8 +1,5 @@
 package com.epitech.epicture
 
-import android.content.Context
-import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -10,10 +7,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_profile.*
-import kotlinx.android.synthetic.main.photo.view.*
 import okhttp3.*
 import org.json.JSONObject
 import java.io.IOException
@@ -24,6 +21,25 @@ class ProfileFragment : Fragment() {
     var clientSecret: String = "2fd10421531b2478f628367988ee622d5c6ddb70"
 
     private var root: View? = null
+    private var photos: ArrayList<Photo> = ArrayList()
+    private var adapter: ProfileFragmentAdapter = ProfileFragmentAdapter(photos)
+
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        super.onCreate(savedInstanceState)
+        val view = inflater.inflate(R.layout.fragment_profile, container, false)
+        //var rv = view.findViewById<RecyclerView>(R.id.rv_profile)
+        fetchAvatarProfile()
+        fetchPostNumberProfile()
+        fetchReputationProfile()
+        //rv.adapter = this.adapter
+        //rv.layoutManager = LinearLayoutManager(this.activity)
+        return view
+    }
+
+    private fun runOnUiThread(task: Runnable) {
+        Handler(Looper.getMainLooper()).post(task)
+    }
 
     fun fetchAvatarProfile() {
         var requestProfile = "https://api.imgur.com/3/account/" + imgurClient.accountUsername + "/avatar/"
@@ -115,21 +131,5 @@ class ProfileFragment : Fragment() {
                 println("Failed to execute the request.")
             }
         })
-    }
-
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        super.onCreate(savedInstanceState)
-        fetchAvatarProfile()
-        fetchPostNumberProfile()
-        fetchReputationProfile()
-        return inflater.inflate(R.layout.fragment_profile, container, false)
-    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-    }
-
-    private fun runOnUiThread(task: Runnable) {
-        Handler(Looper.getMainLooper()).post(task)
     }
 }

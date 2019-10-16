@@ -8,15 +8,36 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.fragment_profile.*
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import okhttp3.*
 import org.json.JSONObject
 import java.io.IOException
 
 class FavoritesFragment : Fragment() {
 
-    fun fetchFavoritesPictures() {
+    private var photos: ArrayList<Photo> = ArrayList()
+    private var adapter: ProfileFragmentAdapter = ProfileFragmentAdapter(photos)
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        super.onCreate(savedInstanceState)
+        val view = inflater.inflate(R.layout.fragment_home, container, false)
+        var rv = view.findViewById<RecyclerView>(R.id.rv_home)
+        fetchFavoritesPictures()
+        rv.adapter = this.adapter
+        rv.layoutManager = LinearLayoutManager(this.activity)
+        return view
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+    }
+
+    private fun runOnUiThread(task: Runnable) {
+        Handler(Looper.getMainLooper()).post(task)
+    }
+
+    private fun fetchFavoritesPictures() {
         var requestFavorites = "https://api.imgur.com/3/account/" + imgurClient.accountUsername + "/favorites/"
 
         var request = Request.Builder()
@@ -27,38 +48,35 @@ class FavoritesFragment : Fragment() {
         client.newCall(request).enqueue(object : Callback {
 
             override fun onResponse(call: Call, response: Response) {
-
                 val jsonData = JSONObject(response.body()?.string())
                 val jsonItems = jsonData.getJSONArray("data")
 
-                runOnUiThread(Runnable {
-                    if (jsonItems.length() == 0) {
-                        Toast.makeText(context, "You don't have any favorite pictures.", Toast.LENGTH_SHORT).show()
+                if (jsonItems.length() == 0) {
+                    Toast.makeText(context, "You don't have any favorite pictures.", Toast.LENGTH_SHORT).show()
+                }
+                for (items in 0 until (jsonItems.length())) {
+                    val item = jsonItems.getJSONObject(items)
+                    val photoItem = Photo()
+                    if (item.getBoolean("is_album")) {
+                        photoItem.id = item.getString("cover")
+                    } else {
+                        photoItem.id = item.getString("id")
                     }
-                    println("---> Favorites")
-                    println(jsonItems)
+                    photoItem.title = item.getString("title")
+                    photoItem.ups = item.getString("ups").toInt()
+                    photoItem.downs = item.getString("downs").toInt()
+                    photoItem.comment = item.getString("comment_count").toInt()
+                    photoItem.views = item.getString("views").toInt()
+                    photos.add(photoItem)
+                }
+                runOnUiThread(Runnable {
+                    adapter.notifyDataSetChanged()
                 })
-
             }
 
             override fun onFailure(call: Call?, e: IOException?) {
                 println("Failed to execute the request.")
             }
         })
-    }
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-
-        super.onCreate(savedInstanceState)
-        fetchFavoritesPictures()
-        return inflater.inflate(R.layout.fragment_favorites, container, false)
-    }
-
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-    }
-
-    private fun runOnUiThread(task: Runnable) {
-        Handler(Looper.getMainLooper()).post(task)
     }
 }

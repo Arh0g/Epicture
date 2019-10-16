@@ -15,48 +15,46 @@
         <RelativeLayout
             android:id="@+id/imgUser"
             android:layout_width="wrap_content"
-            android:layout_centerHorizontal="true"
             android:layout_height="wrap_content"
-            android:background="@drawable/circle_border"
-            android:layout_marginTop="20dp">
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/circle_border">
 
             <ImageView
                 android:id="@+id/profileAvatar"
                 android:layout_width="120dp"
                 android:layout_height="120dp"
                 android:layout_margin="8dp"
-                android:padding="3dp"
-                android:background="@drawable/circle"
-                tools:srcCompat="@tools:sample/avatars[2]"
                 android:adjustViewBounds="true"
-                android:scaleType="center"/>
+                android:background="@drawable/circle"
+                android:padding="3dp"
+                android:scaleType="center"
+                tools:srcCompat="@tools:sample/avatars[2]" />
         </RelativeLayout>
 
         <TextView
             android:id="@+id/profileName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Arthur Kalman Ringler"
             android:layout_below="@id/imgUser"
             android:layout_centerHorizontal="true"
-            android:textSize="32sp"
-            android:textColor="@color/white"
-            android:fontFamily="sans-serif-light"
             android:layout_marginTop="15sp"
-            />
+            android:fontFamily="sans-serif-light"
+            android:text="Arthur Kalman Ringler"
+            android:textColor="@color/white"
+            android:textSize="32sp" />
 
         <TextView
             android:id="@+id/profileReputationType"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Reputation type"
             android:layout_below="@id/profileName"
             android:layout_centerHorizontal="true"
-            android:textSize="24sp"
-            android:textColor="@color/white"
-            android:fontFamily="sans-serif"
             android:layout_marginTop="15sp"
-            />
+            android:fontFamily="sans-serif"
+            android:text="Reputation type"
+            android:textColor="@color/white"
+            android:textSize="24sp" />
 
     </RelativeLayout>
 
@@ -72,10 +70,10 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_weight="1"
-            android:paddingTop="5dp"
-            android:paddingBottom="5dp"
+            android:background="@color/colorAccent"
             android:gravity="center"
-            android:background="@color/colorAccent">
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp">
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -87,21 +85,20 @@
                     android:id="@+id/profilePostNumber"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="666"
-                    android:textSize="25sp"
-                    android:textColor="@color/white"
                     android:fontFamily="sans-serif-light"
-                    />
+                    android:text="666"
+                    android:textColor="@color/white"
+                    android:textSize="25sp" />
+
                 <TextView
                     android:id="@+id/profilePostText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-light"
                     android:text="posts"
                     android:textAllCaps="true"
-                    android:textSize="13sp"
                     android:textColor="@color/white"
-                    android:fontFamily="sans-serif-light"
-                    />
+                    android:textSize="13sp" />
             </LinearLayout>
         </RelativeLayout>
 
@@ -110,10 +107,10 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_weight="1"
-            android:paddingTop="5dp"
-            android:paddingBottom="5dp"
+            android:background="@color/colorAccent"
             android:gravity="center"
-            android:background="@color/colorAccent">
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp">
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -125,29 +122,28 @@
                     android:id="@+id/profileReputationNumber"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="666"
-                    android:textSize="25sp"
-                    android:textColor="@color/white"
                     android:fontFamily="sans-serif-light"
-                    />
+                    android:text="666"
+                    android:textColor="@color/white"
+                    android:textSize="25sp" />
+
                 <TextView
                     android:id="@+id/profileReputationText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-light"
                     android:text="internet points"
                     android:textAllCaps="true"
-                    android:textSize="13sp"
                     android:textColor="@color/white"
-                    android:fontFamily="sans-serif-light"
-                    />
+                    android:textSize="13sp" />
             </LinearLayout>
         </RelativeLayout>
     </LinearLayout>
 
     <RelativeLayout
-        android:layout_below="@+id/inlayyy"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_below="@+id/inlayyy"
         android:background="@color/white">
 
         <LinearLayout
@@ -158,17 +154,36 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
+                android:layout_centerHorizontal="true"
                 android:gravity="center_horizontal"
-                android:layout_centerHorizontal="true">
+                android:orientation="vertical">
+
                 <TextView
                     android:id="@+id/profileDescription"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Profile Description"
                     android:layout_centerHorizontal="true"
-                    android:textSize="18sp"/>
+                    android:text="Profile Description"
+                    android:textSize="18sp" />
             </LinearLayout>
+
         </LinearLayout>
+
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/refreshLayoutProfile"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.recyclerview.widget.RecyclerView
+                tools:listitem="@layout/photo_favorite"
+                android:id="@+id/rv_profile"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="0dp"
+                android:layout_marginBottom="0dp" />
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+
     </RelativeLayout>
+
 </RelativeLayout>

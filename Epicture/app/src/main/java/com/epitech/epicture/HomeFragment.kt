@@ -12,6 +12,7 @@ import org.json.JSONObject
 import java.io.IOException
 import android.os.Handler
 import android.os.Looper
+import androidx.recyclerview.widget.GridLayoutManager
 
 class Photo {
     var id: String = "id" // "id" or "cover"
@@ -57,7 +58,6 @@ class HomeFragment : Fragment() {
                 for (items in 0 until (jsonItems.length() - 1)) {
                     val item = jsonItems.getJSONObject(items)
                     val photoItem = Photo()
-                    println(item)
                     if (item.getBoolean("is_album")) {
                         photoItem.id = item.getString("cover")
                     } else {
@@ -69,10 +69,10 @@ class HomeFragment : Fragment() {
                     photoItem.comment = item.getString("comment_count").toInt()
                     photoItem.views = item.getString("views").toInt()
                     photos.add(photoItem)
-                    runOnUiThread(Runnable {
-                        adapter.notifyDataSetChanged()
-                    })
                 }
+                runOnUiThread(Runnable {
+                    adapter.notifyDataSetChanged()
+                })
             }
 
             override fun onFailure(call: Call?, e: IOException?) {
