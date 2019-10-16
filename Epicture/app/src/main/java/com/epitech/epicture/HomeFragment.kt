@@ -14,6 +14,8 @@ import android.view.*
 import android.widget.Toast
 import androidx.recyclerview.widget.GridLayoutManager
 
+
+
 class Photo {
     var id: String = "id" // "id" or "cover"
     var title: String = "title" // "title"
@@ -71,7 +73,6 @@ class HomeFragment : Fragment() {
                     photos.add(photoItem)
                 }
                 runOnUiThread(Runnable {
-                    println("tessssssssssst")
                     adapter.notifyDataSetChanged()
                 })
             }
@@ -90,8 +91,12 @@ class HomeFragment : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.itemAddPicture -> {
-                val intent =  Intent(activity, UploadActivity::class.java)
-                startActivity(intent)
+                if (imgurClient.accessToken != "") {
+                    val intent = Intent(activity, UploadActivity::class.java)
+                    startActivity(intent)
+                } else {
+                    Toast.makeText(context,"You are not connected.",Toast.LENGTH_SHORT).show()
+                }
                 return true
             }
             R.id.itemHot -> {
@@ -112,13 +117,34 @@ class HomeFragment : Fragment() {
                 refreshHomeGallery(imgurClient.requestUrlViral)
                 return true
             }
+            R.id.itemLogout -> {
+                if (imgurClient.accessToken != "") {
+                    Toast.makeText(context, "You are logged out !", Toast.LENGTH_SHORT).show()
+                    imgurClient.logoutClient()
+                }
+                else {
+                    Toast.makeText(context, "You are already logout !", Toast.LENGTH_SHORT).show()
+                }
+            }
+            R.id.itemLogin -> {
+                if (imgurClient.accessToken == "") {
+                    val intentToWebView = Intent(context, LoginActivity::class.java)
+                    startActivity(intentToWebView)
+                } else {
+                    Toast.makeText(context, "You are already logged in !", Toast.LENGTH_SHORT).show()
+                }
+            }
         }
         return super.onOptionsItemSelected(item)
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.filter_toolbar, menu);
+        inflater.inflate(R.menu.filter_toolbar, menu)
         super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    override fun onPrepareOptionsMenu(menu: Menu) {
+        super.onPrepareOptionsMenu(menu)
     }
 
     private fun runOnUiThread(task: Runnable) {

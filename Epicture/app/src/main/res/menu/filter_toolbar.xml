@@ -3,6 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
+        android:id="@+id/itemLogin"
+        android:title="Login"
+        android:icon="@drawable/ic_accessibility_black_24dp"
+        app:showAsAction="always"
+        android:visible="true">
+    </item>
+    <item
         android:id="@+id/itemAddPicture"
         android:title="Add"
         android:icon="@drawable/ic_file_upload_black_24dp"
@@ -22,6 +29,12 @@
     <item
         android:id="@+id/itemViral"
         android:title="Viral"
+        app:showAsAction="never">
+
+    </item>
+    <item
+        android:id="@+id/itemLogout"
+        android:title="Logout"
         app:showAsAction="never">
 
     </item>
