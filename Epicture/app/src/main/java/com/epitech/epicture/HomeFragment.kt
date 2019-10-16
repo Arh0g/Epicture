@@ -10,6 +10,7 @@ import java.io.IOException
 import android.os.Handler
 import android.os.Looper
 import android.view.*
+import android.widget.Toast
 import androidx.recyclerview.widget.GridLayoutManager
 
 class Photo {
@@ -69,6 +70,7 @@ class HomeFragment : Fragment() {
                     photos.add(photoItem)
                 }
                 runOnUiThread(Runnable {
+                    println("tessssssssssst")
                     adapter.notifyDataSetChanged()
                 })
             }
@@ -87,15 +89,20 @@ class HomeFragment : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.itemHot -> {
+                photos.clear()
+                Toast.makeText(context, "Load hot galleries !", Toast.LENGTH_SHORT).show()
                 refreshHomeGallery(imgurClient.requestUrl)
                 return true
             }
             R.id.itemTop -> {
+                photos.clear()
+                Toast.makeText(context, "Load top galleries !", Toast.LENGTH_SHORT).show()
                 refreshHomeGallery(imgurClient.requestUrlTop)
                 return true
             }
             R.id.itemViral -> {
-                println("alleeeeeeeez")
+                photos.clear()
+                Toast.makeText(context, "Load viral galleries !", Toast.LENGTH_SHORT).show()
                 refreshHomeGallery(imgurClient.requestUrlViral)
                 return true
             }
