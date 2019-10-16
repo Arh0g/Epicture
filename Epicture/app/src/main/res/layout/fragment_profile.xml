@@ -150,25 +150,5 @@
         android:layout_height="match_parent"
         android:background="@color/white">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10sp">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:gravity="center_horizontal"
-                android:layout_centerHorizontal="true">
-                <TextView
-                    android:id="@+id/profileDescription"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Profile Description"
-                    android:layout_centerHorizontal="true"
-                    android:textSize="18sp"/>
-            </LinearLayout>
-        </LinearLayout>
     </RelativeLayout>
 </RelativeLayout>

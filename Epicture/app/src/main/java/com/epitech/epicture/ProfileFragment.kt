@@ -17,6 +17,11 @@ import kotlinx.android.synthetic.main.photo.view.*
 import okhttp3.*
 import org.json.JSONObject
 import java.io.IOException
+import androidx.appcompat.app.AppCompatActivity
+
+
+
+
 
 class ProfileFragment : Fragment() {
 
@@ -144,6 +149,17 @@ class ProfileFragment : Fragment() {
                 println("Failed to execute the request.")
             }
         })
+    }
+
+    override fun onResume() {
+        super.onResume()
+        super.onResume()
+        (activity as AppCompatActivity).supportActionBar!!.hide()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        (activity as AppCompatActivity).supportActionBar!!.show()
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
