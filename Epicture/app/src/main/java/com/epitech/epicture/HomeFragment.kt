@@ -1,5 +1,6 @@
 package com.epitech.epicture
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -10,7 +11,10 @@ import java.io.IOException
 import android.os.Handler
 import android.os.Looper
 import android.view.*
+import android.widget.Toast
 import androidx.recyclerview.widget.GridLayoutManager
+
+
 
 class Photo {
     var id: String = "id" // "id" or "cover"
@@ -86,26 +90,61 @@ class HomeFragment : Fragment() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
+            R.id.itemAddPicture -> {
+                if (imgurClient.accessToken != "") {
+                    val intent = Intent(activity, UploadActivity::class.java)
+                    startActivity(intent)
+                } else {
+                    Toast.makeText(context,"You are not connected.",Toast.LENGTH_SHORT).show()
+                }
+                return true
+            }
             R.id.itemHot -> {
+                photos.clear()
+                Toast.makeText(context, "Load hot galleries !", Toast.LENGTH_SHORT).show()
                 refreshHomeGallery(imgurClient.requestUrl)
                 return true
             }
             R.id.itemTop -> {
+                photos.clear()
+                Toast.makeText(context, "Load top galleries !", Toast.LENGTH_SHORT).show()
                 refreshHomeGallery(imgurClient.requestUrlTop)
                 return true
             }
             R.id.itemViral -> {
-                println("alleeeeeeeez")
+                photos.clear()
+                Toast.makeText(context, "Load viral galleries !", Toast.LENGTH_SHORT).show()
                 refreshHomeGallery(imgurClient.requestUrlViral)
                 return true
+            }
+            R.id.itemLogout -> {
+                if (imgurClient.accessToken != "") {
+                    Toast.makeText(context, "You are logged out !", Toast.LENGTH_SHORT).show()
+                    imgurClient.logoutClient()
+                }
+                else {
+                    Toast.makeText(context, "You are already logout !", Toast.LENGTH_SHORT).show()
+                }
+            }
+            R.id.itemLogin -> {
+                if (imgurClient.accessToken == "") {
+                    val intentToWebView = Intent(context, LoginActivity::class.java)
+                    startActivity(intentToWebView)
+                } else {
+                    Toast.makeText(context, "You are already logged in !", Toast.LENGTH_SHORT).show()
+                }
             }
         }
         return super.onOptionsItemSelected(item)
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.filter_toolbar, menu);
+        inflater.inflate(R.menu.filter_toolbar, menu)
         super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    override fun onPrepareOptionsMenu(menu: Menu) {
+        super.onPrepareOptionsMenu(menu)
     }
 
     private fun runOnUiThread(task: Runnable) {

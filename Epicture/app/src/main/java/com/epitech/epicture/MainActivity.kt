@@ -22,6 +22,13 @@ class imgurClient {
         var accountUsername: String = ""
         var accountIdentification: String = ""
         var isConnected: Boolean = false
+
+        fun logoutClient() {
+            accessToken = ""
+            refreshToken = ""
+            accountUsername = ""
+            accountIdentification = ""
+        }
     }
 }
 
@@ -44,12 +51,20 @@ class MainActivity : AppCompatActivity() {
                 return@OnNavigationItemSelectedListener true
             }
             R.id.nav_person -> {
-                replaceFragment(ProfileFragment())
-                return@OnNavigationItemSelectedListener true
+                if (imgurClient.accessToken != "") {
+                    replaceFragment(ProfileFragment())
+                    return@OnNavigationItemSelectedListener true
+                } else {
+                    Toast.makeText(applicationContext,"You are not connected.",Toast.LENGTH_SHORT).show()
+                }
             }
             R.id.nav_favorites -> {
-                replaceFragment(FavoritesFragment())
-                return@OnNavigationItemSelectedListener true
+                if (imgurClient.accessToken != "") {
+                    replaceFragment(FavoritesFragment())
+                    return@OnNavigationItemSelectedListener true
+                } else {
+                    Toast.makeText(applicationContext,"You are not connected.",Toast.LENGTH_SHORT).show()
+                }
             }
 
         }
@@ -70,5 +85,9 @@ class MainActivity : AppCompatActivity() {
             startActivity(intentToWebView)
         }
 
+    }
+
+    override fun onResume() {
+        super.onResume()
     }
 }
