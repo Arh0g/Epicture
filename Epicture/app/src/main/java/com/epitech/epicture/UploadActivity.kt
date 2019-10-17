@@ -3,23 +3,32 @@ package com.epitech.epicture
 import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.Bitmap
 import android.media.Image
 import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
+import android.util.Base64
+import android.widget.EditText
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import kotlinx.android.synthetic.main.activity_upload.*
+import okhttp3.*
+import okhttp3.Request
+import org.json.JSONObject
+import java.io.ByteArrayOutputStream
+import java.io.File
 import java.io.IOException
 import java.util.jar.Manifest
 
 class UploadActivity : AppCompatActivity() {
 
     var pathContent: String = ""
+    var uriPathContent: Uri? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         setContentView(R.layout.activity_upload)
@@ -30,7 +39,8 @@ class UploadActivity : AppCompatActivity() {
         }
         uploadPictureButton.setOnClickListener {
             Toast.makeText(this, "Upload Button was clicked !", Toast.LENGTH_SHORT).show()
-            uploadPicture()
+            if (!uploadPicture())
+                return@setOnClickListener
         }
 
         super.onCreate(savedInstanceState)
@@ -51,7 +61,60 @@ class UploadActivity : AppCompatActivity() {
         }
     }
 
+    fun prepareImageFromPath(uri: Uri) : Boolean {
+        /*First Step*/
+        val streamByte = ByteArrayOutputStream()
+        val imageBitmap = MediaStore.Images.Media.getBitmap(contentResolver, uri)
+        imageBitmap.compress(Bitmap.CompressFormat.PNG, 100, streamByte)
+        val realBitmap = Base64.encodeToString(File(pathContent).readBytes(), 0)
+
+        /*Second Step*/
+        val textImage = findViewById<EditText>(R.id.editTextTitle).text.toString()
+        val textDescription = findViewById<EditText>(R.id.editTextDescription).text.toString()
+
+        if (textImage == "") {
+            Toast.makeText(this, "Your post needs a title.", Toast.LENGTH_SHORT).show()
+            return false
+        } else if (textDescription == "") {
+            Toast.makeText(this, "Your post needs a description.", Toast.LENGTH_SHORT).show()
+            return false
+        }
+
+        /*Third Step*/
+        val requestBody = MultipartBody.Builder()
+            .setType(MultipartBody.FORM)
+            .addFormDataPart("type", "file")
+            .addFormDataPart("image", realBitmap)
+            .addFormDataPart("name", textImage)
+            .addFormDataPart("title", textImage)
+            .addFormDataPart("description", textDescription)
+            .build()
+
+        /*Create POST Request from steps*/
+        val client = OkHttpClient()
+        val request = Request.Builder()
+            .url("https://api.imgur.com/3/upload/")
+            .post(requestBody)
+            .addHeader("Authorization", "Bearer " + imgurClient.accessToken)
+            .addHeader("Cache-control", "no-cache")
+            .build()
+        FormBody.Builder().build()
+        client.newCall(request).enqueue(object : Callback {
+
+            override fun onResponse(call: Call, response: Response) {
+                finish()
+            }
+
+            override fun onFailure(call: Call?, e: IOException?) {
+                println("Failed to execute the request.")
+            }
+        })
+        return true
+    }
+
     fun getPathContent(uri: Uri) : String {
+        uriPathContent = uri
+
         var id = uri.lastPathSegment.split(":")[1]
         val imageContent = arrayOf(MediaStore.Images.Media.DATA)
         val stateEnvironment = Environment.getExternalStorageState()
@@ -84,8 +147,10 @@ class UploadActivity : AppCompatActivity() {
         startActivityForResult(Intent.createChooser(intent, "Load your picture"), 1)
     }
 
-    fun uploadPicture() {
-
+    fun uploadPicture() : Boolean {
+        if (!prepareImageFromPath(uriPathContent!!))
+            return false
+        return true
     }
 
     fun checkPermissions() : Boolean {
