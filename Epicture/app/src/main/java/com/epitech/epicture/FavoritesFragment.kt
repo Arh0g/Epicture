@@ -29,10 +29,6 @@ class FavoritesFragment : Fragment() {
         return view
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-    }
-
     private fun runOnUiThread(task: Runnable) {
         Handler(Looper.getMainLooper()).post(task)
     }

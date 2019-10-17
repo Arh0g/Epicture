@@ -17,9 +17,6 @@ import java.io.IOException
 import androidx.appcompat.app.AppCompatActivity
 
 
-
-
-
 class ProfileFragment : Fragment() {
 
     var clientId: String = "979976772a2d967"
@@ -30,7 +27,11 @@ class ProfileFragment : Fragment() {
     private var adapter: ProfileFragmentAdapter = ProfileFragmentAdapter(photos)
 
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         super.onCreate(savedInstanceState)
         val view = inflater.inflate(R.layout.fragment_profile, container, false)
         //var rv = view.findViewById<RecyclerView>(R.id.rv_profile)
@@ -47,7 +48,8 @@ class ProfileFragment : Fragment() {
     }
 
     fun fetchAvatarProfile() {
-        var requestProfile = "https://api.imgur.com/3/account/" + imgurClient.accountUsername + "/avatar/"
+        var requestProfile =
+            "https://api.imgur.com/3/account/" + imgurClient.accountUsername + "/avatar/"
 
         var request = Request.Builder()
             .url(requestProfile)
@@ -77,7 +79,8 @@ class ProfileFragment : Fragment() {
     }
 
     fun fetchPostNumberProfile() {
-        var requestProfile = "https://api.imgur.com/3/account/" + imgurClient.accountUsername+ "/images/"
+        var requestProfile =
+            "https://api.imgur.com/3/account/" + imgurClient.accountUsername + "/images/"
 
         var request = Request.Builder()
             .url(requestProfile)
@@ -92,9 +95,12 @@ class ProfileFragment : Fragment() {
                 val jsonItems = jsonData.getJSONArray("data")
 
                 runOnUiThread(Runnable {
-                    profilePostNumber.text = jsonItems.length().toString()
-                    if (jsonItems.length() <= 1)
+                    if (profilePostNumber != null) {
+                        profilePostNumber.text = jsonItems.length().toString()
+                    }
+                    if (jsonItems.length() <= 1) {
                         profilePostText.text = "post"
+                    }
                 })
 
             }
@@ -106,7 +112,8 @@ class ProfileFragment : Fragment() {
     }
 
     fun fetchPostsProfile() {
-        var requestProfile = "https://api.imgur.com/3/account/" + imgurClient.accountUsername+ "/images/"
+        var requestProfile =
+            "https://api.imgur.com/3/account/" + imgurClient.accountUsername + "/images/"
 
         var request = Request.Builder()
             .url(requestProfile)

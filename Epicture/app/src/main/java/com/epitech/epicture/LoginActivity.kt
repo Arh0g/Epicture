@@ -1,14 +1,10 @@
 package com.epitech.epicture
 
-import android.app.ProgressDialog
 import android.os.Bundle
-import android.os.PersistableBundle
-import android.webkit.WebResourceRequest
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.epitech.epicture.R
 
 class LoginActivity : AppCompatActivity() {
 
@@ -29,16 +25,23 @@ class LoginActivity : AppCompatActivity() {
             .toTypedArray()[1]
         imgurClient.refreshToken = parseUrl[3].split("=".toRegex()).dropLastWhile { it.isEmpty() }
             .toTypedArray()[1]
-        imgurClient.accountUsername = parseUrl[4].split("=".toRegex()).dropLastWhile { it.isEmpty() }
-            .toTypedArray()[1]
-        imgurClient.accountIdentification = java.lang.Long.valueOf(parseUrl[5].split("=".toRegex()).dropLastWhile { it.isEmpty() }
-            .toTypedArray()[1])
-            .toString()
+        imgurClient.accountUsername =
+            parseUrl[4].split("=".toRegex()).dropLastWhile { it.isEmpty() }
+                .toTypedArray()[1]
+        imgurClient.accountIdentification =
+            java.lang.Long.valueOf(parseUrl[5].split("=".toRegex()).dropLastWhile { it.isEmpty() }
+                .toTypedArray()[1])
+                .toString()
         if (imgurClient.accessToken.isNotEmpty() && imgurClient.refreshToken != null
-            && imgurClient.accountUsername != null && imgurClient.accountIdentification != null) {
-                imgurClient.isConnected = true
+            && imgurClient.accountUsername != null && imgurClient.accountIdentification != null
+        ) {
+            imgurClient.isConnected = true
         }
-        Toast.makeText(applicationContext, "Welcome " + imgurClient.accountUsername, Toast.LENGTH_SHORT).show()
+        Toast.makeText(
+            applicationContext,
+            "Welcome " + imgurClient.accountUsername,
+            Toast.LENGTH_SHORT
+        ).show()
         finish()
     }
 
@@ -48,7 +51,7 @@ class LoginActivity : AppCompatActivity() {
         webView.loadUrl(requestUrl)
         webView.settings.javaScriptEnabled = true
 
-        webView.setWebViewClient(object: WebViewClient() {
+        webView.setWebViewClient(object : WebViewClient() {
             override fun shouldOverrideUrlLoading(view: WebView, url: String): Boolean {
                 view.loadUrl(url)
                 parseImgurCallback(url)
