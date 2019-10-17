@@ -29,7 +29,8 @@
                 android:layout_height="match_parent"
                 android:background="@drawable/shapebasic"
                 android:backgroundTint="@color/colorAccent"
-                android:scaleType="centerCrop"/>
+                android:scaleType="centerCrop"
+                tools:srcCompat="@tools:sample/avatars[0]" />
         </LinearLayout>
 
         <LinearLayout
@@ -39,26 +40,26 @@
             android:background="@drawable/shapebasic">
 
             <EditText
-                android:id="@+id/editText"
+                android:id="@+id/editTextTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:inputType="textPersonName"
-                android:text="Title"
                 android:layout_marginTop="20sp"
                 android:layout_marginLeft="10sp"
-                android:layout_marginRight="10sp"/>
+                android:layout_marginRight="10sp"
+                android:hint="Title"/>
 
             <EditText
-                android:id="@+id/editText2"
+                android:id="@+id/editTextDescription"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:inputType="textPersonName"
-                android:text="Description"
                 android:layout_marginTop="30sp"
                 android:layout_marginLeft="10sp"
-                android:layout_marginRight="10sp"/>
+                android:layout_marginRight="10sp"
+                android:hint="Description"/>
 
         </LinearLayout>
     </LinearLayout>
