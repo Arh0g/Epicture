@@ -17,7 +17,7 @@ import java.io.IOException
 class FavoritesFragment : Fragment() {
 
     private var photos: ArrayList<Photo> = ArrayList()
-    private var adapter: ProfileFragmentAdapter = ProfileFragmentAdapter(photos)
+    private var adapter: FavoritesFragmentAdapter = FavoritesFragmentAdapter(photos)
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         super.onCreate(savedInstanceState)

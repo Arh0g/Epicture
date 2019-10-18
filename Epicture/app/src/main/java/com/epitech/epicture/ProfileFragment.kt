@@ -16,6 +16,12 @@ import org.json.JSONObject
 import java.io.IOException
 import androidx.appcompat.app.AppCompatActivity
 
+class Post {
+    var id: String = "id"
+    var title: String = "title"
+    var description: String = "description"
+    var vote: String = "vote"
+}
 
 class ProfileFragment : Fragment() {
 
@@ -23,7 +29,7 @@ class ProfileFragment : Fragment() {
     var clientSecret: String = "2fd10421531b2478f628367988ee622d5c6ddb70"
 
     private var root: View? = null
-    private var photos: ArrayList<Photo> = ArrayList()
+    private var photos: ArrayList<Post> = ArrayList()
     private var adapter: ProfileFragmentAdapter = ProfileFragmentAdapter(photos)
 
 
@@ -34,12 +40,13 @@ class ProfileFragment : Fragment() {
     ): View? {
         super.onCreate(savedInstanceState)
         val view = inflater.inflate(R.layout.fragment_profile, container, false)
-        //var rv = view.findViewById<RecyclerView>(R.id.rv_profile)
+        var rv = view.findViewById<RecyclerView>(R.id.rv_profile)
         fetchAvatarProfile()
         fetchPostNumberProfile()
         fetchReputationProfile()
-        //rv.adapter = this.adapter
-        //rv.layoutManager = LinearLayoutManager(this.activity)
+        fetchPostsProfile()
+        rv.adapter = this.adapter
+        rv.layoutManager = LinearLayoutManager(this.activity)
         return view
     }
 
@@ -62,7 +69,6 @@ class ProfileFragment : Fragment() {
 
                 val jsonData = JSONObject(response.body()?.string())
                 val jsonItems = jsonData.getJSONObject("data")
-                println(jsonItems)
                 val itemIdentificator = jsonItems["avatar"].toString()
 
                 runOnUiThread(Runnable {
@@ -127,10 +133,17 @@ class ProfileFragment : Fragment() {
                 val jsonData = JSONObject(response.body()?.string())
                 val jsonItems = jsonData.getJSONArray("data")
 
+                for (items in 0 until (jsonItems.length())) {
+                    val item = jsonItems.getJSONObject(items)
+                    val photoItem = Post()
+                    photoItem.id = item.getString("id")
+                    photoItem.title = item.getString("title")
+                    photoItem.description = item.getString("description")
+                    photoItem.vote = item.getString("vote")
+                    photos.add(photoItem)
+                }
                 runOnUiThread(Runnable {
-                    for (items in 0 until (jsonItems.length() - 1)) {
-                        val item = jsonItems.getJSONObject(items)
-                    }
+                    adapter.notifyDataSetChanged()
                 })
 
             }
