@@ -98,7 +98,8 @@
                 android:layout_marginRight="35sp"
                 android:backgroundTint="@color/colorPrimary"
                 android:background="@drawable/shapebasic"
-                android:textColor="@color/white"/>
+                android:textColor="@color/white"
+                android:visibility="invisible"/>
 
         </LinearLayout>
     </LinearLayout>

@@ -10,6 +10,8 @@ import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
 import android.util.Base64
+import android.view.View.INVISIBLE
+import android.view.View.VISIBLE
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.Toast
@@ -36,6 +38,7 @@ class UploadActivity : AppCompatActivity() {
         loadPictureButton.setOnClickListener {
             Toast.makeText(this, "Load Button was clicked !", Toast.LENGTH_SHORT).show()
             loadPicture()
+            uploadPictureButton.setVisibility(VISIBLE)
         }
         uploadPictureButton.setOnClickListener {
             Toast.makeText(this, "Upload Button was clicked !", Toast.LENGTH_SHORT).show()
