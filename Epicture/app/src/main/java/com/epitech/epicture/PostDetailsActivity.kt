@@ -1,5 +1,6 @@
 package com.epitech.epicture
 
+import android.content.Intent
 import android.os.Bundle
 import android.os.PersistableBundle
 import androidx.appcompat.app.AppCompatActivity
@@ -23,6 +24,12 @@ class PostDetailsActivity: AppCompatActivity() {
             detailsDescription.text = imageDescription
             Picasso.get().load(imageUrl)
                 .into(detailsPost)
+            //
+            detailsPost.setOnClickListener {
+                val intent: Intent = Intent(this, PostDetailsFullActivity::class.java)
+                intent.putExtra("image_url", imageUrl)
+                startActivity(intent)
+            }
         }
     }
 }

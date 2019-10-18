@@ -14,7 +14,7 @@
         android:orientation="vertical"
         android:layout_marginLeft="80sp"
         android:layout_marginRight="80sp"
-        android:background="@color/colorBackgroundDark">
+        android:background="@color/colorBackground">
 
         <ImageView
             android:id="@+id/imagePost"
@@ -38,14 +38,6 @@
                 android:layout_marginTop="4sp"
                 android:layout_marginBottom="4sp"
                 android:textSize="20sp"/>
-
-            <Button
-                android:id="@+id/buttonDetails"
-                android:layout_width="match_parent"
-                android:layout_height="30sp"
-                android:text="See details"
-                android:background="@color/colorBackground"
-                android:textColor="@color/white"/>
 
         </LinearLayout>
     </LinearLayout>
