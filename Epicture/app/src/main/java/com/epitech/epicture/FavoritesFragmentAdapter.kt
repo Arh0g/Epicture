@@ -68,7 +68,7 @@ class FavoritesFragmentAdapter(var photos: ArrayList<Photo>) :
         holder.view.imageButton.setImageResource(android.R.drawable.btn_star_big_on)
 
         holder.view.imageButton.setOnClickListener {
-            if (isUnfav(photos[position])) {
+            if (position < photos.size && isUnfav(photos[position])) {
                 favoritePicture(photos[position].id)
                 holder.view.imageButton.setImageResource(android.R.drawable.btn_star_big_on)
                 for (item in unfav) {
@@ -77,7 +77,7 @@ class FavoritesFragmentAdapter(var photos: ArrayList<Photo>) :
                         unfav.remove(item)
                     }
                 }
-            } else {
+            } else if (position < photos.size) {
                 favoritePicture(photos[position].id)
                 holder.view.imageButton.setImageResource(android.R.drawable.btn_star_big_off)
                 unfav.add(photos[position])
