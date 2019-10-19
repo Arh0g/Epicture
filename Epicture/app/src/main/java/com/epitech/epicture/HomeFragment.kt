@@ -23,6 +23,7 @@ class Photo {
     var downs: Int = 0 // "downs"
     var comment: Int = 0 // "comment_count"
     var views: Int = 0 // views
+    var description: String = "description"
 }
 
 class HomeFragment : Fragment() {
@@ -66,6 +67,7 @@ class HomeFragment : Fragment() {
                         photoItem.id = item.getString("id")
                     }
                     photoItem.title = item.getString("title")
+                    photoItem.description = item.getString("description")
                     photoItem.ups = item.getString("ups").toInt()
                     photoItem.downs = item.getString("downs").toInt()
                     photoItem.comment = item.getString("comment_count").toInt()
