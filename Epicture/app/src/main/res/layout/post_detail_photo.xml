@@ -2,13 +2,18 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorBackgroundDark"
+    android:orientation="vertical">
 
     <ImageView
         android:id="@+id/detailsPostFull"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scaleType="centerCrop"
+        android:layout_gravity="center"
+        android:scaleType="fitCenter"
+        android:scrollIndicators="right"
+        android:scrollbars="horizontal"
         tools:srcCompat="@tools:sample/avatars[14]" />
 </LinearLayout>

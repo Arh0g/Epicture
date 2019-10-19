@@ -96,7 +96,12 @@ class SearchFragment : Fragment() {
                         photoItem.id = item.getString("id")
                     }
                     photoItem.title = item.getString("title")
+                    photoItem.title = item.getString("title")
+                    if (photoItem.title.isNullOrBlank() || photoItem.description == "null")
+                        photoItem.title = "No title"
                     photoItem.description = item.getString("description")
+                    if (photoItem.description.isNullOrBlank() || photoItem.description == "null")
+                        photoItem.description = "No description."
                     photoItem.ups = item.getString("ups").toInt()
                     photoItem.downs = item.getString("downs").toInt()
                     photoItem.comment = item.getString("comment_count").toInt()

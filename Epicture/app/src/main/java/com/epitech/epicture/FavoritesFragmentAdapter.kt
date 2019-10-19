@@ -61,33 +61,35 @@ class FavoritesFragmentAdapter(var photos: ArrayList<Photo>) :
     }
 
     override fun onBindViewHolder(holder: FavoritesFragmentViewHolder, position: Int) {
-        holder.view.titleGallery.text = photos[position].title
-        Picasso.get().load("https://i.imgur.com/" + photos[position].id + ".jpg")
+        var photo: Photo = photos[position]
+
+        holder.view.titleGallery.text = photo.title
+        Picasso.get().load("https://i.imgur.com/" + photo.id + ".jpg")
             .into(holder.view.imageGallery)
 
         holder.view.imageButton.setImageResource(android.R.drawable.btn_star_big_on)
 
         holder.view.imageButton.setOnClickListener {
-            if (position < photos.size && isUnfav(photos[position])) {
-                favoritePicture(photos[position].id)
+            if (isUnfav(photo)) {
+                favoritePicture(photo.id)
                 holder.view.imageButton.setImageResource(android.R.drawable.btn_star_big_on)
                 for (item in unfav) {
-                    if (item.id == photos[position].id) {
+                    if (item.id == photo.id) {
                         photos.add(item)
                         unfav.remove(item)
                     }
                 }
             } else if (position < photos.size) {
-                favoritePicture(photos[position].id)
+                favoritePicture(photo.id)
                 holder.view.imageButton.setImageResource(android.R.drawable.btn_star_big_off)
-                unfav.add(photos[position])
+                unfav.add(photo)
                 photos.removeAt(position)
             }
         }
 
-        val description = photos[position].description
-        val title = photos[position].title
-        val pictureUrl = "https://i.imgur.com/" + photos[position].id + ".jpg"
+        val description = photo.description
+        val title = photo.title
+        val pictureUrl = "https://i.imgur.com/" + photo.id + ".jpg"
         holder.view.imageGallery.setOnClickListener {
             val intent = Intent(holder.view.context, PostDetailsActivity::class.java)
             intent.putExtra("image_url", pictureUrl)

@@ -138,7 +138,11 @@ class ProfileFragment : Fragment() {
                     val photoItem = Post()
                     photoItem.id = item.getString("id")
                     photoItem.title = item.getString("title")
+                    if (photoItem.title.isNullOrBlank() || photoItem.description == "null")
+                        photoItem.title = "No title"
                     photoItem.description = item.getString("description")
+                    if (photoItem.description.isNullOrBlank() || photoItem.description == "null")
+                        photoItem.description = "No description."
                     photoItem.vote = item.getString("vote")
                     photos.add(photoItem)
                 }
