@@ -3,7 +3,6 @@ package com.epitech.epicture
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.StrictMode
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -75,16 +74,19 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val navView: BottomNavigationView = findViewById(R.id.bottom_navigation)
-        navView.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener)
-        navView.setSelectedItemId(R.id.nav_home)
-
         if (!imgurClient.isConnected) {
             Toast.makeText(applicationContext,"You are not connected.",Toast.LENGTH_SHORT).show()
             val intentToWebView = Intent(this, LoginActivity::class.java)
-            startActivity(intentToWebView)
+            startActivityForResult(intentToWebView, 1)
         }
+    }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        val navView: BottomNavigationView = findViewById(R.id.bottom_navigation)
+        navView.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener)
+        navView.setSelectedItemId(R.id.nav_home)
     }
 
     override fun onResume() {

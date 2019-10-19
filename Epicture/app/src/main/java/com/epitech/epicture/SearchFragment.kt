@@ -10,7 +10,8 @@ import androidx.recyclerview.widget.RecyclerView
 class SearchFragment : Fragment() {
 
     private val photos: ArrayList<Photo> = ArrayList()
-    private var adapter: HomeFragmentAdapter = HomeFragmentAdapter(photos)
+    private val fav: ArrayList<Photo> = ArrayList()
+    private var adapter: HomeFragmentAdapter = HomeFragmentAdapter(photos, fav)
 
     override fun onCreateView(
         inflater: LayoutInflater,

@@ -19,7 +19,11 @@ class FavoritesFragment : Fragment() {
     private var photos: ArrayList<Photo> = ArrayList()
     private var adapter: FavoritesFragmentAdapter = FavoritesFragmentAdapter(photos)
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         super.onCreate(savedInstanceState)
         val view = inflater.inflate(R.layout.fragment_home, container, false)
         var rv = view.findViewById<RecyclerView>(R.id.rv_home)
@@ -34,7 +38,8 @@ class FavoritesFragment : Fragment() {
     }
 
     private fun fetchFavoritesPictures() {
-        var requestFavorites = "https://api.imgur.com/3/account/" + imgurClient.accountUsername + "/favorites/"
+        var requestFavorites =
+            "https://api.imgur.com/3/account/" + imgurClient.accountUsername + "/favorites/"
 
         var request = Request.Builder()
             .url(requestFavorites)
@@ -48,7 +53,11 @@ class FavoritesFragment : Fragment() {
                 val jsonItems = jsonData.getJSONArray("data")
 
                 if (jsonItems.length() == 0) {
-                    Toast.makeText(context, "You don't have any favorite pictures.", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        context,
+                        "You don't have any favorite pictures.",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
                 for (items in 0 until (jsonItems.length())) {
                     val item = jsonItems.getJSONObject(items)
@@ -59,6 +68,7 @@ class FavoritesFragment : Fragment() {
                         photoItem.id = item.getString("id")
                     }
                     photoItem.title = item.getString("title")
+                    photoItem.description = item.getString("description")
                     photoItem.ups = item.getString("ups").toInt()
                     photoItem.downs = item.getString("downs").toInt()
                     photoItem.comment = item.getString("comment_count").toInt()

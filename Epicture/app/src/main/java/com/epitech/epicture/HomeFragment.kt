@@ -15,7 +15,6 @@ import android.widget.Toast
 import androidx.recyclerview.widget.GridLayoutManager
 
 
-
 class Photo {
     var id: String = "id" // "id" or "cover"
     var title: String = "title" // "title"
@@ -29,7 +28,8 @@ class Photo {
 class HomeFragment : Fragment() {
 
     private val photos: ArrayList<Photo> = ArrayList()
-    private var adapter: HomeFragmentAdapter = HomeFragmentAdapter(photos)
+    private var fav: ArrayList<Photo> = ArrayList()
+    private var adapter: HomeFragmentAdapter = HomeFragmentAdapter(photos, fav)
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -39,6 +39,7 @@ class HomeFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_home, container, false)
         val rv = view.findViewById<RecyclerView>(R.id.rv_home)
         refreshHomeGallery(imgurClient.requestUrl)
+        fetchFavoritesPictures()
         rv.adapter = this.adapter
         rv.layoutManager = LinearLayoutManager(this.activity)
         return view
@@ -85,6 +86,52 @@ class HomeFragment : Fragment() {
         })
     }
 
+    private fun fetchFavoritesPictures() {
+        var requestFavorites =
+            "https://api.imgur.com/3/account/" + imgurClient.accountUsername + "/favorites/"
+
+        var request = Request.Builder()
+            .url(requestFavorites)
+            .header("Authorization", "Bearer " + imgurClient.accessToken)
+            .build()
+        val client = OkHttpClient()
+        client.newCall(request).enqueue(object : Callback {
+
+            override fun onResponse(call: Call, response: Response) {
+                val jsonData = JSONObject(response.body()?.string())
+                val jsonItems = jsonData.getJSONArray("data")
+
+                if (jsonItems.length() == 0) {
+                    Toast.makeText(
+                        context,
+                        "You don't have any favorite pictures.",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+                for (items in 0 until (jsonItems.length())) {
+                    val item = jsonItems.getJSONObject(items)
+                    val photoItem = Photo()
+                    if (item.getBoolean("is_album")) {
+                        photoItem.id = item.getString("cover")
+                    } else {
+                        photoItem.id = item.getString("id")
+                    }
+                    photoItem.title = item.getString("title")
+                    photoItem.description = item.getString("description")
+                    photoItem.ups = item.getString("ups").toInt()
+                    photoItem.downs = item.getString("downs").toInt()
+                    photoItem.comment = item.getString("comment_count").toInt()
+                    photoItem.views = item.getString("views").toInt()
+                    fav.add(photoItem)
+                }
+            }
+
+            override fun onFailure(call: Call?, e: IOException?) {
+                println("Failed to execute the request.")
+            }
+        })
+    }
+
     override fun onResume() {
         setHasOptionsMenu(true)
         super.onResume()
@@ -97,34 +144,39 @@ class HomeFragment : Fragment() {
                     val intent = Intent(activity, UploadActivity::class.java)
                     startActivity(intent)
                 } else {
-                    Toast.makeText(context,"You are not connected.",Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, "You are not connected.", Toast.LENGTH_SHORT).show()
                 }
                 return true
             }
             R.id.itemHot -> {
                 photos.clear()
+                fav.clear()
                 Toast.makeText(context, "Load hot galleries !", Toast.LENGTH_SHORT).show()
                 refreshHomeGallery(imgurClient.requestUrl)
+                fetchFavoritesPictures()
                 return true
             }
             R.id.itemTop -> {
                 photos.clear()
+                fav.clear()
                 Toast.makeText(context, "Load top galleries !", Toast.LENGTH_SHORT).show()
                 refreshHomeGallery(imgurClient.requestUrlTop)
+                fetchFavoritesPictures()
                 return true
             }
             R.id.itemViral -> {
                 photos.clear()
+                fav.clear()
                 Toast.makeText(context, "Load viral galleries !", Toast.LENGTH_SHORT).show()
                 refreshHomeGallery(imgurClient.requestUrlViral)
+                fetchFavoritesPictures()
                 return true
             }
             R.id.itemLogout -> {
                 if (imgurClient.accessToken != "") {
                     Toast.makeText(context, "You are logged out !", Toast.LENGTH_SHORT).show()
                     imgurClient.logoutClient()
-                }
-                else {
+                } else {
                     Toast.makeText(context, "You are already logout !", Toast.LENGTH_SHORT).show()
                 }
             }
@@ -133,7 +185,8 @@ class HomeFragment : Fragment() {
                     val intentToWebView = Intent(context, LoginActivity::class.java)
                     startActivity(intentToWebView)
                 } else {
-                    Toast.makeText(context, "You are already logged in !", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, "You are already logged in !", Toast.LENGTH_SHORT)
+                        .show()
                 }
             }
         }

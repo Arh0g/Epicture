@@ -14,7 +14,7 @@
         android:orientation="vertical"
         android:layout_marginLeft="80sp"
         android:layout_marginRight="80sp"
-        android:background="@color/colorBackground">
+        android:background="@drawable/photo_infos">
 
         <ImageView
             android:id="@+id/imagePost"
