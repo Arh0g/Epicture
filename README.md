@@ -1,2 +1,2 @@
 # Epicture
-Made by Louis PLANCHER & Arthur Ringler.
+Made by Louis PLANCHER & Arthur RINGLER.
