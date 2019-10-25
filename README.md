@@ -8,5 +8,6 @@ This project is an Android Studio's solution and can be run with it.<br>
 We used Android SDK API 28 and the project is buildt with Gradle.<br>
 
 # Screenshots
+<img src="https://i.imgur.com/y0uEzfp.png" data-canonical-src="https://i.imgur.com/y0uEzfp.png" width="200" height="400" />
 ![screen 1](https://i.imgur.com/y0uEzfp.png | width=100)
 ![screen 2](https://i.imgur.com/cdk6fpR.png | width=100)<br>
